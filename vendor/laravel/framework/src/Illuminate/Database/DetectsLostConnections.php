@@ -2,8 +2,8 @@
 
 namespace Illuminate\Database;
 
-use Illuminate\Support\Str;
 use Throwable;
+use Illuminate\Support\Str;
 
 trait DetectsLostConnections
 {

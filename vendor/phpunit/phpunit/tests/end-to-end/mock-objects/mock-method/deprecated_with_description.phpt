@@ -1,7 +1,7 @@
 --TEST--
 Emit deprecation notice when mocking deprecated message.
 --FILE--
-<?php declare(strict_types=1);
+<?php
 class Foo
 {
     /**
@@ -22,6 +22,7 @@ $mockMethod = \PHPUnit\Framework\MockObject\MockMethod::fromReflection(
 $code = $mockMethod->generateCode();
 
 print $code;
+?>
 --EXPECT--
 
 public function bar()
@@ -40,7 +41,7 @@ public function bar()
         }
 
         $__phpunit_result = $this->__phpunit_getInvocationMocker()->invoke(
-            new \PHPUnit\Framework\MockObject\Invocation(
+            new \PHPUnit\Framework\MockObject\Invocation\ObjectInvocation(
                 'Foo', 'bar', $__phpunit_arguments, '', $this, false
             )
         );

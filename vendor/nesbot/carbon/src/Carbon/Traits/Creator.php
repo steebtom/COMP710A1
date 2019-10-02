@@ -16,7 +16,6 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
-use Closure;
 use DateTimeInterface;
 use Exception;
 use InvalidArgumentException;
@@ -267,21 +266,6 @@ trait Creator
         }
     }
 
-    private static function createNowInstance($tz)
-    {
-        if (!static::hasTestNow()) {
-            return static::now($tz);
-        }
-
-        $now = static::getTestNow();
-
-        if ($now instanceof Closure) {
-            return $now(static::now($tz));
-        }
-
-        return $now;
-    }
-
     /**
      * Create a new Carbon instance from a specific date and time.
      *
@@ -315,7 +299,7 @@ trait Creator
         $defaults = null;
         $getDefault = function ($unit) use ($tz, &$defaults) {
             if ($defaults === null) {
-                $now = self::createNowInstance($tz);
+                $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
 
                 $defaults = array_combine([
                     'year',
@@ -542,10 +526,8 @@ trait Creator
         // First attempt to create an instance, so that error messages are based on the unmodified format.
         $date = self::createFromFormatAndTimezone($format, $time, $tz);
         $lastErrors = parent::getLastErrors();
-        /** @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $mock */
-        $mock = static::getMockedTestNow($tz);
 
-        if ($mock && $date instanceof DateTimeInterface) {
+        if (($mock = static::getTestNow()) && $date instanceof DateTimeInterface) {
             // Set timezone from mock if custom timezone was neither given directly nor as a part of format.
             // First let's skip the part that will be ignored by the parser.
             $nonEscaped = '(?<!\\\\)(\\\\{2})*';
@@ -553,7 +535,7 @@ trait Creator
             $nonIgnored = preg_replace("/^.*{$nonEscaped}!/s", '', $format);
 
             if ($tz === null && !preg_match("/{$nonEscaped}[eOPT]/", $nonIgnored)) {
-                $tz = clone $mock->getTimezone();
+                $tz = $mock->getTimezone();
             }
 
             // Set microseconds to zero to match behavior of DateTime::createFromFormat()
@@ -808,12 +790,9 @@ trait Creator
 
         if (is_string($var)) {
             $var = trim($var);
+            $first = substr($var, 0, 1);
 
-            if (is_string($var) &&
-                !preg_match('/^P[0-9T]/', $var) &&
-                !preg_match('/^R[0-9]/', $var) &&
-                preg_match('/[a-z0-9]/i', $var)
-            ) {
+            if (is_string($var) && $first !== 'P' && $first !== 'R' && preg_match('/[a-z0-9]/i', $var)) {
                 $date = static::parse($var);
             }
         }

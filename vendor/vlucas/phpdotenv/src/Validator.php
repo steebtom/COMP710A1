@@ -3,7 +3,6 @@
 namespace Dotenv;
 
 use Dotenv\Exception\ValidationException;
-use Dotenv\Regex\Regex;
 
 /**
  * This is the validator class.
@@ -136,30 +135,6 @@ class Validator
                 return in_array($value, $choices, true);
             },
             sprintf('is not one of [%s]', implode(', ', $choices))
-        );
-    }
-
-    /**
-     * Assert that each variable matches the given regular expression.
-     *
-     * @param string $regex
-     *
-     * @throws \Dotenv\Exception\ValidationException
-     *
-     * @return \Dotenv\Validator
-     */
-    public function allowedRegexValues($regex)
-    {
-        return $this->assertCallback(
-            function ($value) use ($regex)
-            {
-                if ($value === null) {
-                    return true;
-                }
-
-                return Regex::match($regex, $value)->success()->getOrElse(0) === 1;
-            },
-            sprintf('does not match "%s"' , $regex)
         );
     }
 

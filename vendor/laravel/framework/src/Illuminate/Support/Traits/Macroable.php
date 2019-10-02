@@ -2,10 +2,10 @@
 
 namespace Illuminate\Support\Traits;
 
-use BadMethodCallException;
 use Closure;
 use ReflectionClass;
 use ReflectionMethod;
+use BadMethodCallException;
 
 trait Macroable
 {
@@ -80,13 +80,11 @@ trait Macroable
             ));
         }
 
-        $macro = static::$macros[$method];
-
-        if ($macro instanceof Closure) {
-            return call_user_func_array(Closure::bind($macro, null, static::class), $parameters);
+        if (static::$macros[$method] instanceof Closure) {
+            return call_user_func_array(Closure::bind(static::$macros[$method], null, static::class), $parameters);
         }
 
-        return $macro(...$parameters);
+        return call_user_func_array(static::$macros[$method], $parameters);
     }
 
     /**
@@ -112,6 +110,6 @@ trait Macroable
             return call_user_func_array($macro->bindTo($this, static::class), $parameters);
         }
 
-        return $macro(...$parameters);
+        return call_user_func_array($macro, $parameters);
     }
 }

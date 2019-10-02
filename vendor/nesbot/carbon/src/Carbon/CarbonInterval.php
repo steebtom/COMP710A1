@@ -1180,12 +1180,9 @@ class CarbonInterval extends DateInterval
      */
     protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        $optionalSpace = ' ';
-        $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
-        $join = $default === '' ? '' : ' ';
+        $join = ' ';
         $altNumbers = false;
         $aUnit = false;
-
         if (is_array($syntax)) {
             extract($syntax);
         } else {
@@ -1193,47 +1190,35 @@ class CarbonInterval extends DateInterval
                 $parts = $short;
                 $short = false;
             }
-
             if (is_bool($syntax)) {
                 $short = $syntax;
                 $syntax = CarbonInterface::DIFF_ABSOLUTE;
             }
         }
-
         if (is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
-
         if ($parts === -1) {
             $parts = INF;
         }
-
         if (is_null($options)) {
             $options = static::getHumanDiffOptions();
         }
-
-        if ($join === false) {
-            $join = ' ';
-        } elseif ($join === true) {
+        if ($join === true) {
+            $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
             $join = [
                 $default,
                 $this->getTranslationMessage('list.1') ?? $default,
             ];
         }
-
         if ($altNumbers) {
             if ($altNumbers !== true) {
                 $language = new Language($this->locale);
                 $altNumbers = in_array($language->getCode(), (array) $altNumbers);
             }
         }
-
         if (is_array($join)) {
             [$default, $last] = $join;
-
-            if ($default !== ' ') {
-                $optionalSpace = '';
-            }
 
             $join = function ($list) use ($default, $last) {
                 if (count($list) < 2) {
@@ -1245,23 +1230,14 @@ class CarbonInterval extends DateInterval
                 return implode($default, $list).$last.$end;
             };
         }
-
         if (is_string($join)) {
-            if ($join !== ' ') {
-                $optionalSpace = '';
-            }
-
             $glue = $join;
             $join = function ($list) use ($glue) {
                 return implode($glue, $list);
             };
         }
 
-        $interpolations = [
-            ':optional-space' => $optionalSpace,
-        ];
-
-        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations];
+        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers];
     }
 
     /**
@@ -1303,38 +1279,17 @@ class CarbonInterval extends DateInterval
      */
     public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations] = $this->getForHumansParameters($syntax, $short, $parts, $options);
+        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
-
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
         $absolute = $syntax === CarbonInterface::DIFF_ABSOLUTE;
         $relativeToNow = $syntax === CarbonInterface::DIFF_RELATIVE_TO_NOW;
         $count = 1;
         $unit = $short ? 's' : 'second';
-        $isFuture = $this->invert === 1;
-        $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
         /** @var \Symfony\Component\Translation\Translator $translator */
         $translator = $this->getLocalTranslator();
-
-        $handleDeclensions = function ($unit, $count) use ($interpolations, $transId, $translator, $altNumbers) {
-            // Some languages have special pluralization for past and future tense.
-            $key = $unit.'_'.$transId;
-            $result = $this->translate($key, $interpolations, $count, $translator, $altNumbers);
-
-            if ($result !== $key) {
-                return $result;
-            }
-
-            $result = $this->translate($unit, $interpolations, $count, $translator, $altNumbers);
-
-            if ($result !== $unit) {
-                return $result;
-            }
-
-            return null;
-        };
 
         $diffIntervalArray = [
             ['value' => $this->years,            'unit' => 'year',   'unitShort' => 'y'],
@@ -1346,24 +1301,25 @@ class CarbonInterval extends DateInterval
             ['value' => $this->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
+        $transChoice = function ($short, $unitData) use ($translator, $aUnit, $altNumbers) {
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $handleDeclensions($unitData['unitShort'], $count);
+                $result = $this->translate($unitData['unitShort'], [], $count, $translator, $altNumbers);
 
-                if ($result !== null) {
+                if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             } elseif ($aUnit) {
-                $result = $handleDeclensions('a_'.$unitData['unit'], $count);
+                $key = 'a_'.$unitData['unit'];
+                $result = $this->translate($key, [], $count, $translator, $altNumbers);
 
-                if ($result !== null) {
+                if ($result !== $key) {
                     return $result;
                 }
             }
 
-            return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
+            return $this->translate($unitData['unit'], [], $count, $translator, $altNumbers);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1384,16 +1340,14 @@ class CarbonInterval extends DateInterval
         if (count($interval) === 0) {
             if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
-                $translation = $this->translate($key, $interpolations, null, $translator);
-
+                $translation = $this->translate($key, [], null, $translator);
                 if ($translation !== $key) {
                     return $translation;
                 }
             }
-
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $this->translate($unit, $interpolations, $count, $translator, $altNumbers);
+            $interval[] = $this->translate($unit, [], $count, $translator, $altNumbers);
         }
 
         // join the interval parts by a space
@@ -1413,29 +1367,27 @@ class CarbonInterval extends DateInterval
             if ($relativeToNow && $unit === 'day') {
                 if ($count === 1 && $options & CarbonInterface::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = $this->translate($key, $interpolations, null, $translator);
-
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
-
                 if ($count === 2 && $options & CarbonInterface::TWO_DAY_WORDS) {
                     $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
-                    $translation = $this->translate($key, $interpolations, null, $translator);
-
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
             }
-
-            $time = $handleDeclensions($unit.'_'.$transId, $count) ?: $time;
+            // Some languages have special pluralization for past and future tense.
+            $key = $unit.'_'.$transId;
+            if ($key !== $this->translate($key, [], null, $translator)) {
+                $time = $this->translate($key, [], $count, $translator, $altNumbers);
+            }
         }
 
-        $time = [':time' => $time];
-
-        return $this->translate($transId, array_merge($time, $interpolations, $time), null, $translator);
+        return $this->translate($transId, [':time' => $time], null, $translator);
     }
 
     /**

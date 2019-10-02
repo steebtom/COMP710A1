@@ -2,13 +2,13 @@
 
 namespace Illuminate\Http;
 
-use ArrayAccess;
 use Closure;
-use Illuminate\Contracts\Support\Arrayable;
+use ArrayAccess;
+use RuntimeException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use RuntimeException;
+use Illuminate\Contracts\Support\Arrayable;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 

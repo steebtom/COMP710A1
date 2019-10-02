@@ -6,14 +6,11 @@ addons:
       - libxml2-utils
 
 php:
+  - 7.1
   - 7.2
   - 7.3
-  - 7.4snapshot
-  - nightly
 
 matrix:
-  allow_failures:
-    - php: nightly
   fast_finish: true
 
 env:
@@ -47,3 +44,13 @@ after_success:
 
 notifications:
   email: false
+
+jobs:
+  include:
+    - stage: Static Code Analysis
+      php: 7.3
+      env: php-cs-fixer
+      install:
+        - phpenv config-rm xdebug.ini
+      script:
+        - ./tools/php-cs-fixer fix --dry-run -v --show-progress=dots --diff-format=udiff

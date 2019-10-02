@@ -1,100 +1,100 @@
 @extends('layouts.app')
 @section('content')
-<div class="card-body">
-                    <form method = "POST" action = "{{route('booknow')}}">
-                        @csrf
+@if ($message = Session::get('updatesuccess'))
+<div class="alert alert-success alert-block">
+        <strong>{{ $message }}</strong>
+</div>
+@endif
+<div class="container">
+<h2 class="aboutus-title">Cuts</h2>
+  <div class="row">
 
-<div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Service 1') }}</label>
+    
+@if(count($cuts) > 0)
+@foreach($cuts as $cut)
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">
+            <div class="card-body " style="background-color:#E2F5ED">
+                <h5 class="card-title">{{$cut->Cuts}}</h5>
+                <p class="card-text">{{$cut->price}}</p>
 
-                            <div class="col-md-6">
-                            <input id="name" type="text" class="form-control" name="ser1" required  autofocus>
-                            </div>
-                        </div>
-
-
-                        
-<div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 2') }}</label>
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="ser2" required  autofocus>
-                            </div>
-                        </div>
-
-    <!-- <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 3') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser3" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 4') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser4" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 5') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser5" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 6') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser6" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 7') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser7" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 8') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser8" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 9') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser9" required  autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Service 10') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="ser10" required  autofocus>
-                                </div>
-                            </div>
-                        
-                        
-
-
-
-                        </div>
-                                    
-                                </div>
-                            </div> -->
-
-                        
-                     
-
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary" name = "submit">
-                                    {{ __('Book') }}
+                <button type="submit"    name = "submit">
+                                    <a href = "/postUpdatedDetails?style={{$cut->Cuts}}&price={{$cut->price}}&id={{$cut->id}}">Edit</a>
                                 </button>
 
-                            
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            </div>
+        </div>
+        <br>
+<br>
+</div>
+@endforeach
+ @endif
+        
+   
+  </div> 
+  
+</div>
 
+<div class="container">
+<h2 class="aboutus-title">Products</h2>
+  <div class="row">
+
+    
+@if(count($products) > 0)
+@foreach($products as $product)
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">
+            <div class="card-body " style="background-color:#E2F5ED">
+                <h5 class="card-title">{{$product->products}}</h5>
+                <p class="card-text">{{$product->price}}</p>
+
+                <button type="submit"    name = "submit">
+                                    <a href = "/postUpdatedProducts?product={{$product->products}}&price={{$product->price}}&id={{$product->id}}">Edit</a>
+                                </button>
+
+            </div>
+        </div>
+        <br>
+<br>
+</div>
+@endforeach
+ @endif
+        
+   
+  </div> 
+  
+</div>
+
+
+<div class="container">
+<h2 class="aboutus-title">Other Services</h2>
+  <div class="row">
+
+    
+@if(count($other) > 0)
+@foreach($other as $others)
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">
+            <div class="card-body " style="background-color:#E2F5ED">
+                <h5 class="card-title">{{$others->other_services}}</h5>
+                <p class="card-text">{{$others->price}}</p>
+
+                <button type="submit"    name = "submit">
+                                    <a href = "/postUpdatedServices?service={{$others->other_services}}&price={{$others->price}}&id={{$others->id}}">Edit</a>
+                                </button>
+
+            </div>
+        </div>
+        <br>
+<br>
+</div>
+@endforeach
+ @endif
+        
+   
+  </div> 
+  
+</div
 
 
 

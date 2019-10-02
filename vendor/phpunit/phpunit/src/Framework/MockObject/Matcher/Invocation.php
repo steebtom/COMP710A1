@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,8 @@ use PHPUnit\Framework\MockObject\Verifiable;
 use PHPUnit\Framework\SelfDescribing;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Interface for classes which matches an invocation based on its
+ * method name, argument, order or call count.
  */
 interface Invocation extends SelfDescribing, Verifiable
 {
@@ -39,6 +40,8 @@ interface Invocation extends SelfDescribing, Verifiable
      * expectation is met.
      *
      * @param BaseInvocation $invocation Object containing information on a mocked or stubbed method which was invoked
+     *
+     * @return bool
      */
-    public function matches(BaseInvocation $invocation): bool;
+    public function matches(BaseInvocation $invocation);
 }

@@ -2,28 +2,28 @@
 
 namespace Illuminate\Validation\Concerns;
 
-use Countable;
 use DateTime;
-use DateTimeInterface;
-use DateTimeZone;
-use Egulias\EmailValidator\EmailValidator;
-use Egulias\EmailValidator\Validation\DNSCheckValidation;
-use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
-use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
-use Egulias\EmailValidator\Validation\RFCValidation;
-use Egulias\EmailValidator\Validation\SpoofCheckValidation;
+use Countable;
 use Exception;
+use Throwable;
+use DateTimeZone;
+use DateTimeInterface;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Validation\ValidationData;
-use InvalidArgumentException;
+use Egulias\EmailValidator\EmailValidator;
 use Symfony\Component\HttpFoundation\File\File;
+use Egulias\EmailValidator\Validation\RFCValidation;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Throwable;
+use Egulias\EmailValidator\Validation\DNSCheckValidation;
+use Egulias\EmailValidator\Validation\SpoofCheckValidation;
+use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
+use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
 
 trait ValidatesAttributes
 {
@@ -914,10 +914,6 @@ trait ValidatesAttributes
             return $this->getSize($attribute, $value) > $parameters[0];
         }
 
-        if ($this->hasRule($attribute, $this->numericRules) && is_numeric($value) && is_numeric($comparedToValue)) {
-            return $value > $comparedToValue;
-        }
-
         if (! $this->isSameType($value, $comparedToValue)) {
             return false;
         }
@@ -943,10 +939,6 @@ trait ValidatesAttributes
 
         if (is_null($comparedToValue) && (is_numeric($value) && is_numeric($parameters[0]))) {
             return $this->getSize($attribute, $value) < $parameters[0];
-        }
-
-        if ($this->hasRule($attribute, $this->numericRules) && is_numeric($value) && is_numeric($comparedToValue)) {
-            return $value < $comparedToValue;
         }
 
         if (! $this->isSameType($value, $comparedToValue)) {
@@ -976,10 +968,6 @@ trait ValidatesAttributes
             return $this->getSize($attribute, $value) >= $parameters[0];
         }
 
-        if ($this->hasRule($attribute, $this->numericRules) && is_numeric($value) && is_numeric($comparedToValue)) {
-            return $value >= $comparedToValue;
-        }
-
         if (! $this->isSameType($value, $comparedToValue)) {
             return false;
         }
@@ -1005,10 +993,6 @@ trait ValidatesAttributes
 
         if (is_null($comparedToValue) && (is_numeric($value) && is_numeric($parameters[0]))) {
             return $this->getSize($attribute, $value) <= $parameters[0];
-        }
-
-        if ($this->hasRule($attribute, $this->numericRules) && is_numeric($value) && is_numeric($comparedToValue)) {
-            return $value <= $comparedToValue;
         }
 
         if (! $this->isSameType($value, $comparedToValue)) {

@@ -2,9 +2,9 @@
 
 namespace Illuminate\Mail;
 
-use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Support\HtmlString;
 use Parsedown;
+use Illuminate\Support\HtmlString;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class Markdown

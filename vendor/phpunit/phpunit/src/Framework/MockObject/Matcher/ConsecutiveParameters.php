@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,13 +12,19 @@ namespace PHPUnit\Framework\MockObject\Matcher;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\InvalidParameterGroupException;
 use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Invocation matcher which looks for sets of specific parameters in the invocations.
+ *
+ * Checks the parameters of the incoming invocations, the parameter list is
+ * checked against the defined constraints in $parameters. If the constraint
+ * is met it will return true in matches().
+ *
+ * It takes a list of match groups and and increases a call index after each invocation.
+ * So the first invocation uses the first group of constraints, the second the next and so on.
  */
-final class ConsecutiveParameters extends StatelessInvocation
+class ConsecutiveParameters extends StatelessInvocation
 {
     /**
      * @var array
@@ -36,16 +42,6 @@ final class ConsecutiveParameters extends StatelessInvocation
     public function __construct(array $parameterGroups)
     {
         foreach ($parameterGroups as $index => $parameters) {
-            if (!\is_iterable($parameters)) {
-                throw new InvalidParameterGroupException(
-                    \sprintf(
-                        'Parameter group #%d must be an array or Traversable, got %s',
-                        $index,
-                        \gettype($parameters)
-                    )
-                );
-            }
-
             foreach ($parameters as $parameter) {
                 if (!$parameter instanceof Constraint) {
                     $parameter = new IsEqual($parameter);
@@ -62,10 +58,11 @@ final class ConsecutiveParameters extends StatelessInvocation
     }
 
     /**
-     * @throws ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \PHPUnit\Framework\ExpectationFailedException
+     *
+     * @return bool
      */
-    public function matches(BaseInvocation $invocation): bool
+    public function matches(BaseInvocation $invocation)
     {
         $this->invocations[] = $invocation;
         $callIndex           = \count($this->invocations) - 1;
@@ -75,10 +72,6 @@ final class ConsecutiveParameters extends StatelessInvocation
         return false;
     }
 
-    /**
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     public function verify(): void
     {
         foreach ($this->invocations as $callIndex => $invocation) {
@@ -92,7 +85,6 @@ final class ConsecutiveParameters extends StatelessInvocation
      * @param int $callIndex
      *
      * @throws ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     private function verifyInvocation(BaseInvocation $invocation, $callIndex): void
     {

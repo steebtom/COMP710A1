@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,10 @@
 namespace PHPUnit\Framework\MockObject;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Interface for classes which can be invoked.
+ *
+ * The invocation will be taken from a mock object and passed to an object
+ * of this class.
  */
 interface Invokable extends Verifiable
 {
@@ -28,6 +31,8 @@ interface Invokable extends Verifiable
      * Checks if the invocation matches.
      *
      * @param Invocation $invocation The invocation object passed from mock object
+     *
+     * @return bool
      */
-    public function matches(Invocation $invocation): bool;
+    public function matches(Invocation $invocation);
 }
