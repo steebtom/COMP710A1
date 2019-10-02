@@ -21,6 +21,17 @@ Route::get('/contact', 'pagesController@getContact');
 
  Route::get('/messages', 'MessagesController@getMessages');
 
+ Route::get('/services', 'ServiceController@getServices');
+
+ Route::get('/updatedetails', 'ServiceController@showServices');
+
+ Route::name('updateService')->post('updateService', 'ServiceController@submit');
+
+ Route::name('updateProduct')->post('updateProduct', 'ServiceController@product');
+
+ Route::name('updateOther')->post('updateOther', 'ServiceController@service');
+ 
+
 Route::post('/contact/submit', 'MessagesController@submit');
 
 
@@ -49,23 +60,22 @@ Route::get('/booking/create', 'bookingController@bookredirect');
 Route::get('/imageUpload', 'ImageUploadController@imageUpload');
 
 
+
+
 Route::name('moveImage')->post('moveImage', 'ImageUploadController@imageUploadPost');
 
 
 //Gallery
 Route::view('/gallery','gallery');
 
+Route::view('/postUpdatedDetails','postUpdatedDetails');
+
+Route::view('/postUpdatedProducts','postUpdatedProducts');
+
+Route::view('/postUpdatedServices','postUpdatedServices');
 
 
-//Gallery
-Route::view('/services','services');
 
-
-
-
-//Update Details
-Route::view('/updatedetails','updatedetails');
-Route::name('manage')->post('manage', 'AdminController@updateDetails');
 
 
 
