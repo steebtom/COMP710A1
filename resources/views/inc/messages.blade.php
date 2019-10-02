@@ -2,12 +2,12 @@
     @foreach($errors->all() as $error)
     <div class ="alert alert-danger">
         {{$error}}
-</div>
+    </div>
     @endforeach
-    @endif
+@endif
 
-    @if(session('success'))
+@if(session('success'))
     <div class = "alert alert-success">
         {{session('success')}}
-</div>
+    </div>
 @endif

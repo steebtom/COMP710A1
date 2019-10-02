@@ -26,7 +26,6 @@ class controllerTest extends TestCase
 
     
     public function testBookingTest(){
-    // Event::fake();
 
     $request = Request::create('/booking', 'POST',[
         'email' => 'mariolycan4@gmail.com',
@@ -41,7 +40,7 @@ class controllerTest extends TestCase
     $controller = new BookingController();
     $response = $controller->createBooking($request);
     $this->assertEquals(302, $response->getStatusCode());
-}
+    }
 
 public function testBooking(){
     $this->assertCount(7, booking::all());
@@ -56,9 +55,9 @@ public function testBooking(){
     $controller = new BookingController();
     $response = $controller->submit($request);
     $this->assertEquals(302, $response->getStatusCode());
-}
+    }
 
-public function testMessages(){
+    public function testMessages(){
     $this->assertCount(1, Message::all());
    }
 
@@ -78,12 +77,12 @@ public function testMessages(){
     $controller = new MessagesController();
     $response = $controller->submit($request);
     $this->assertEquals(302, $response->getStatusCode());
-}
+    }
 
-public function testContact()
-{
-    $response = $this->get('/contact');
+    public function testContact()
+    {
+        $response = $this->get('/contact');
 
-    $response->assertStatus(200);
-}
+        $response->assertStatus(200);
+    }
 }

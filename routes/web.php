@@ -19,18 +19,18 @@ Route::get('/about', 'pagesController@getAbout');
 
 Route::get('/contact', 'pagesController@getContact');
 
- Route::get('/messages', 'MessagesController@getMessages');
+Route::get('/messages', 'MessagesController@getMessages');
 
- Route::get('/services', 'ServiceController@getServices');
+Route::get('/services', 'ServiceController@getServices');
 
- Route::get('/updatedetails', 'ServiceController@showServices');
+Route::get('/updatedetails', 'ServiceController@showServices');
 
- Route::name('updateService')->post('updateService', 'ServiceController@submit');
+Route::name('updateService')->post('updateService', 'ServiceController@submit');
 
- Route::name('updateProduct')->post('updateProduct', 'ServiceController@product');
+Route::name('updateProduct')->post('updateProduct', 'ServiceController@product');
 
- Route::name('updateOther')->post('updateOther', 'ServiceController@service');
- 
+Route::name('updateOther')->post('updateOther', 'ServiceController@service');
+
 
 Route::post('/contact/submit', 'MessagesController@submit');
 
@@ -42,19 +42,19 @@ Route::name('navigation1')->post('navigation1', 'bookingController@submit');
 
 
 
- Route::name('check')->get('check', 'pagesController@getcheck');
+Route::name('check')->get('check', 'pagesController@getcheck');
 
- 
- Route::get('/book', 'bookingController@getBookingpage');
 
- Route::name('navigation2')->post('navigation2', 'bookingController@edit');
- 
- Route::get('/bookingDetails', 'bookingController@getBookingEmail');
+Route::get('/book', 'bookingController@getBookingpage');
 
- 
- Route::name('booknow')->post('booknow', 'bookingController@createBooking');
+Route::name('navigation2')->post('navigation2', 'bookingController@edit');
 
- 
+Route::get('/bookingDetails', 'bookingController@getBookingEmail');
+
+
+Route::name('booknow')->post('booknow', 'bookingController@createBooking');
+
+
 Route::get('/booking/create', 'bookingController@bookredirect');
 
 Route::get('/imageUpload', 'ImageUploadController@imageUpload');
@@ -82,6 +82,7 @@ Route::view('/postUpdatedServices','postUpdatedServices');
 
 //Upload Video
 Route::view('/uploadvideo','uploadvideo');
+
 Route::name('submitvideo')->post('submitvideo', 'ImageUploadController@videoUploadPost');   
 
 Auth::routes();

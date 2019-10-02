@@ -31,8 +31,6 @@ class BookingController extends Controller
     }
 
 
-
-
 public function createBooking(Request $request){
   
         $this->validate($request, [
@@ -46,41 +44,41 @@ public function createBooking(Request $request){
         ]);
  
  
-$bdate = $request->input('bdate');
-$slot = $request->input('timing');
-$stylist = $request->input('stylist');
+    $bdate = $request->input('bdate');
+    $slot = $request->input('timing');
+    $stylist = $request->input('stylist');
 
-$booking = new booking;
+    $booking = new booking;
 
-$booking1 = booking::where([['bookingDate',$bdate],['slot',$slot],['stylist',$stylist]])->first();
+    $booking1 = booking::where([['bookingDate',$bdate],['slot',$slot],['stylist',$stylist]])->first();
 
-if(!$booking1)        
-    {
-     $booking->email = $request->input('email');
-     $booking->name = $request->input('custname');
-     $booking->phone = $request->input('phone');
-     $booking->location = $request->input('location');
-     $booking->bookingDate = $request->input('bdate');
-     $booking->slot = $request->input('timing');
-     $booking->stylist = $request->input('stylist');
-     $booking->save();
-     return redirect('/')->with('bookingsuccess', 'Booking Successfull');
+    if(!$booking1)        
+        {
+        $booking->email = $request->input('email');
+        $booking->name = $request->input('custname');
+        $booking->phone = $request->input('phone');
+        $booking->location = $request->input('location');
+        $booking->bookingDate = $request->input('bdate');
+        $booking->slot = $request->input('timing');
+        $booking->stylist = $request->input('stylist');
+        $booking->save();
+        return redirect('/')->with('bookingsuccess', 'Booking Successfull');
+        }
+
+        else{
+            return back()
+            ->with('failure', 'Stylist not avaliable at this time slot ! Try another stylist or different time slot');
+        }
+}
+
+
+    public function success(){
+        return redirect()->route('app2');
     }
 
-    else{
-        return back()
-        ->with('failure', 'Stylist not avaliable at this time slot ! Try another stylist or different time slot');
+    public function bookingCreate(){
+        return redirect()->route('app2');
     }
-}
-
-
-public function success(){
-    return redirect()->route('app2');
-}
-
-public function bookingCreate(){
-    return redirect()->route('app2');
-}
 
        public function getCheck(){
         return view('check');

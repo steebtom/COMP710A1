@@ -9,88 +9,88 @@ use App\services;
 
 class ServiceController extends Controller
 {
-    public function getServices(){
+public function getServices(){
+    $cuts = Prices::all();
+        $products = products::all();
+        $other = services::all();
+
+    return view('services')->with('cuts',$cuts)
+        ->with('products',$products)
+        ->with('other',$other);   
+}
+
+public function showServices(){
         $cuts = Prices::all();
-         $products = products::all();
-         $other = services::all();
+            $products = products::all();
+            $other = services::all();
 
-        return view('services')->with('cuts',$cuts)
-         ->with('products',$products)
-         ->with('other',$other);   
+        return view('updatedetails')->with('cuts',$cuts)
+            ->with('products',$products)
+            ->with('other',$other);  
+}
+
+public function submit(Request $request){
+    $this->validate($request, [
+        'ser1' => 'required',
+        'ser2' => 'required',
+        'ser3' => 'required',
+    ]);
+
+
+    //Create new Message
+
+    $style = $request->input('ser1');
+    $price = $request->input('ser2');
+    $id = $request->input('ser3');
+
+    $booking1 = Prices::where('id',$id)
+    ->update(['Cuts' => $style, 'price' => $price]);
+                
+
+    return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
     }
 
-    public function showServices(){
-            $cuts = Prices::all();
-             $products = products::all();
-             $other = services::all();
-    
-            return view('updatedetails')->with('cuts',$cuts)
-             ->with('products',$products)
-             ->with('other',$other);  
-    }
 
-    public function submit(Request $request){
+    public function product(Request $request){
         $this->validate($request, [
             'ser1' => 'required',
             'ser2' => 'required',
             'ser3' => 'required',
         ]);
- 
- 
+    
+    
         //Create new Message
     
-     $style = $request->input('ser1');
-     $price = $request->input('ser2');
-     $id = $request->input('ser3');
+        $product = $request->input('ser1');
+        $price = $request->input('ser2');
+        $id = $request->input('ser3');
 
-     $booking1 = Prices::where('id',$id)
-     ->update(['Cuts' => $style, 'price' => $price]);
-                 
- 
-     return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
+        $booking1 = products::where('id',$id)
+        ->update(['products' => $product, 'price' => $price]);
+                    
+    
+        return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
         }
 
-
-        public function product(Request $request){
+        public function service(Request $request){
             $this->validate($request, [
                 'ser1' => 'required',
                 'ser2' => 'required',
                 'ser3' => 'required',
             ]);
-     
-     
+        
+        
             //Create new Message
         
-         $product = $request->input('ser1');
-         $price = $request->input('ser2');
-         $id = $request->input('ser3');
+            $service = $request->input('ser1');
+            $price = $request->input('ser2');
+            $id = $request->input('ser3');
     
-         $booking1 = products::where('id',$id)
-         ->update(['products' => $product, 'price' => $price]);
-                     
-     
-         return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
+            $booking1 = services::where('id',$id)
+            ->update(['other_services' => $service, 'price' => $price]);
+                        
+        
+            return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
             }
 
-            public function service(Request $request){
-                $this->validate($request, [
-                    'ser1' => 'required',
-                    'ser2' => 'required',
-                    'ser3' => 'required',
-                ]);
-         
-         
-                //Create new Message
-            
-             $service = $request->input('ser1');
-             $price = $request->input('ser2');
-             $id = $request->input('ser3');
-        
-             $booking1 = services::where('id',$id)
-             ->update(['other_services' => $service, 'price' => $price]);
-                         
-         
-             return redirect('/updatedetails')->with('updatesuccess', 'Record Updated');
-                }
-    
 }
