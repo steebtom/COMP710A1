@@ -50,7 +50,7 @@
             <br>
             <div>
                 <br>
-                <img src="/images/6.jpg" width="1100">
+                <img src="/images/2.jpg" width="1100">
             </div>
         </div>
     </div>
