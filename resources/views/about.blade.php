@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content') < link href = 'https://fonts.googleapis.com/css?family=Roboto' rel = 'stylesheet' > <div class="container">
+@section('content') <link href = 'https://fonts.googleapis.com/css?family=Roboto' rel = 'stylesheet' > <div class="container">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-9">
             <video controls="controls" autoplay="autoplay" width="600" height="400">
@@ -16,12 +16,13 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="aboutus">
                                 <h2 class="aboutus-title">About Us</h2>
-                                <p class="aboutus-text">Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                    porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus
-                                    in.</p>
-                                <p class="aboutus-text">This is Photoshop's version of Lorem Ipsum. Proin
-                                    gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
-                                    auctor, nisi elit consequat ipsum, nec sagittis sem</p>
+                                <p class="aboutus-text">We offer full-service mens grooming whether you’re
+                                    fashion-forward or just want to keep things tidy. Our highly trained barbers
+                                    will help you decide the service that best suits your needs, plus we can make
+                                    recommendations based on your face shape and hair type if you want to mix it up
+                                    from your usual style.</p>
+                                <p class="aboutus-text">We deliver traditional straight razor hot shaves, using
+                                    hot towels and essential oils with handsome results.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -37,8 +38,9 @@
                                             </div>
                                             <div class="feature-content">
                                                 <h4>Work with heart</h4>
-                                                <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat
-                                                    vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                                <p>Our people are the heart and soul of Bosscuts. We combine technical
+                                                    expertise and client service excellence to educate, engage and add value so our
+                                                    clients look and feel incredible.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -49,20 +51,9 @@
                                             </div>
                                             <div class="feature-content">
                                                 <h4>Reliable services</h4>
-                                                <p>Donec vitae sapien ut libero venenatis faucibu. Nullam quis ante. Etiam sit
-                                                    amet orci eget eros faucibus tincidunt</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="feature-box">
-                                        <div class="clearfix">
-                                            <div class="iconset">
-                                                <span class="glyphicon glyphicon-cog icon"></span>
-                                            </div>
-                                            <div class="feature-content">
-                                                <h4>Great support</h4>
-                                                <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat
-                                                    vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                                <p>We are NZ’s largest and fastest growing barber company. We offer the best
+                                                    opportunities for Barbers and Hairdressers to progress quickly, follow their
+                                                    passion and become incredibly successful.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -107,4 +98,4 @@
                                         </div>
                                     </div>
 
-@endsection
+                                    @endsection

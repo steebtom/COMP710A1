@@ -14,7 +14,7 @@
                     <h5 class="card-title">{{$cut->Cuts}}</h5>
                     <p class="card-text">{{$cut->price}}</p>
                     <p class="card-text">Average Time: 40 mins</p>
-                    <p class="card-text">Stylist: Steeb</p>
+                    <p class="card-text">Stylist: Peter</p>
 
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <h5 class="card-title">{{$product->products}}</h5>
                     <p class="card-text">{{$product->price}}</p>
                     <p class="card-text">Average Time: 40 mins</p>
-                    <p class="card-text">Stylist: Steeb</p>
+                    <p class="card-text">Stylist: Albert</p>
 
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <h5 class="card-title">{{$service->other_services}}</h5>
                     <p class="card-text">{{$service->price}}</p>
                     <p class="card-text">Average Time: 40 mins</p>
-                    <p class="card-text">Stylist: Steeb</p>
+                    <p class="card-text">Stylist: Peter</p>
 
                 </div>
             </div>

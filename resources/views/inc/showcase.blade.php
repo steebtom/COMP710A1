@@ -38,14 +38,14 @@
             <h1>Bosscuts, Hamilton</h1>
             <div>
                 <p class="lead">Get your own style</p>
-                Boss Cuts. is the largest and fastest growing barber shop. In 2014 founders Adam
-                Johanson and John Erkkila could see a significant gap in the growing mens
-                grooming market. The first store opened in Millwater, north of Auckland in
-                January 2015. By 2016 more than half a dozen BarberShopCo outlets opened across
-                Auckland, creating a real buzz in the market and challenging the standard of
+                Boss Cuts. is the largest and fastest growing barber shop. In 2014 founders
+                Albert Markus and Peter Winnikkie could see a significant gap in the growing
+                mens grooming market. The first store opened in Hamilton,in January 2015. By
+                2016 more than half a dozen Bosscuts outlets opened across Auckland and
+                Hamilton, creating a real buzz in the market and challenging the standard of
                 mens grooming. By focusing on ‘the thousand details’ that make up the client
-                experience, BarberShopCo was able to grow at a blistering pace with 10 stores
-                open by the end of 2016.
+                experience, Bosscuts was able to grow at a blistering pace with 10 stores open
+                by the end of 2016.
             </div>
             <br>
             <div>

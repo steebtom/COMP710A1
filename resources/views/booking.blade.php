@@ -175,8 +175,8 @@
                             <label for="b" class="col-md-4 col-form-label text-md-right">{{ __('Stylist') }}</label>
                             <div class="col-md-6">
                                 <select name="stylist" required="required">
-                                    <option>Stylist 1</option>
-                                    <option>Stylist 1</option>
+                                    <option>Albert</option>
+                                    <option>Peter</option>
                                 </select>
                             </div>
                         </div>
