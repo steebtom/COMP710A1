@@ -9,4 +9,6 @@ return array(
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Highlight\\' => array($vendorDir . '/scrivo/highlight.php'),
+    'HighlightUtilities\\' => array($vendorDir . '/scrivo/highlight.php'),
 );

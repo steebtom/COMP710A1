@@ -10,7 +10,7 @@
 </div>
 @endif
 
-@if(session('New')) < div class = "container" > <div class="row">
+@if(session('New')) <div class = "container" > <div class="row">
     <div class="newcust">
         <img
             src="/images/New_Customer.jpg"
