@@ -84,7 +84,7 @@
                                         </div>
                                         <div class="col-sm">
                                             <div class="card" style="width: 18rem;">
-                                                <img src="/images/6.jpg" class="card-img-top" alt="...">
+                                                <img src="/images/5.jpg" class="card-img-top" alt="...">
                                                     <div class="card-body" style="background-color:#CFDEE7">
                                                         <h5 class="card-title">Maria</h5>
                                                         <p class="card-text">Hair Designer</p>
