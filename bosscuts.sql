@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 09, 2019 at 09:26 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Host: localhost
+-- Generation Time: Oct 10, 2019 at 05:22 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.1.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,7 +46,8 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `name`, `email`, `phone`, `location`, `bookingDate`, `slot`, `stylist`, `created_at`, `updated_at`) VALUES
-(1, 'Mario', 'mariolycan4@gmail.com', 225293940, 'Hamilton East', '2019-10-09', '10 AM', 'Albert', '2019-10-09 00:34:17', '2019-10-09 00:34:17');
+(1, 'Mario', 'mariolycan4@gmail.com', 225293940, 'Hamilton East', '2019-10-09', '10 AM', 'Albert', '2019-10-09 00:34:17', '2019-10-09 00:34:17'),
+(2, 'asd', 'mariolycan4@gmail.com', 234343, 'asdas', '2019-09-14', '214', 'asdsad', '2019-10-09 13:28:46', '2019-10-09 13:28:46');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,10 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `name`, `email`, `messages`, `created_at`, `updated_at`) VALUES
-(1, 'Mara', 'maria@gmail.com', 'Hey I can please where the shop located?', '2019-10-09 00:26:47', '2019-10-09 00:26:47');
+(1, 'Mara', 'maria@gmail.com', 'Hey I can please where the shop located?', '2019-10-09 00:26:47', '2019-10-09 00:26:47'),
+(2, 'required', 'required', 'required', '2019-10-09 13:28:46', '2019-10-09 13:28:46'),
+(3, 'required', 'required', 'required', '2019-10-09 13:29:34', '2019-10-09 13:29:34'),
+(4, 'required', 'required', 'required', '2019-10-09 14:09:13', '2019-10-09 14:09:13');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$x1xkywisUYaApD0R02bxu.A1iirf57Zdp.rCfJZ3Vt5ds6ou1g3za', 'sa42jLH79jjK32qs0bqzDEuo1jOWXtKI8nz3X5PCA2Z6Rew6zCUsgAVGKOCV', '2019-10-09 00:24:22', '2019-10-09 00:24:22');
+(2, 'Mark', 'mark@example.com', NULL, '$2y$10$NRreUsLkCjZqC.ur6VNQ2ePFyRLFRaNUuGCDVWLjzxfAAzxFy8QmC', NULL, '2019-10-09 14:21:52', '2019-10-09 14:21:52');
 
 --
 -- Indexes for dumped tables
@@ -264,13 +268,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -300,7 +304,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
