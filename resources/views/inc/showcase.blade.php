@@ -52,6 +52,13 @@
                 <br>
                 <img src="/images/2.jpg" width="1100">
             </div>
+            <br><br>
+            <div>
+            <h1>Contact Details: </h1>
+            <b>Address:</b> 174 Clarkin Road, Fairfield, Hamilton 3791<br>
+            <b>Phone:</b> 02102844736<br>
+            <b>Email:</b> bosscutshamilton@gmail.com<br>
+            </div>
         </div>
     </div>
 
